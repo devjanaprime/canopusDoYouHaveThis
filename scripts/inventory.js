@@ -4,17 +4,25 @@ $( document ).ready( readyNow );
 
 function readyNow(){
     console.log( 'JQ' );
-}  // end readyow
+    $( '#addItemButton' ).on( 'click', addItem );
+}  // end readyNow
+
+function addItem(){
+    // get user input
+    // use input to create item
+    new Item( $( '#sizeIn' ).val(), $( '#colorIn' ).val(), $( '#nameIn' ).val() )
+    // push item into array (done in constructor)
+    // reset inputs
+    $( '#nameIn' ).val('');
+    $( '#sizeIn' ).val('Tiny');
+    $( '#colorIn' ).val('Red');
+} //end clickyTest
 
 // item object constructor
-function Item( sizeIn, colorIn, nameIn){
+function Item( sizeIn, colorIn, nameIn ){
     this.size = sizeIn;
     this.color = colorIn;
     this.name = nameIn;
     // once created add to inventory
     inventory.push( this );
 } // end item constructor
-
-new Item( 'tiny', 'purple', 'vial of glitter' );
-new Item( 'small', 'purple', 'cup of glitter' );
-new Item( 'medium', 'purple', 'bucket of glitter' );
