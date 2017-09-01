@@ -3,8 +3,8 @@ var inventory =[];
 $( document ).ready( readyNow );
 
 function readyNow(){
-    console.log( 'JQ' );
     $( '#addItemButton' ).on( 'click', addItem );
+    $( '#searchButton' ).on( 'click', searchNow );
 }  // end readyNow
 
 function addItem(){
@@ -13,9 +13,9 @@ function addItem(){
     new Item( $( '#sizeIn' ).val(), $( '#colorIn' ).val(), $( '#nameIn' ).val() )
     // push item into array (done in constructor)
     // reset inputs
-    $( '#nameIn' ).val('');
-    $( '#sizeIn' ).val('Tiny');
-    $( '#colorIn' ).val('Red');
+    $( '#nameIn' ).val( '' );
+    $( '#sizeIn' ).val( 'Tiny' );
+    $( '#colorIn' ).val( 'Red' );
 } //end clickyTest
 
 // item object constructor
@@ -26,3 +26,21 @@ function Item( sizeIn, colorIn, nameIn ){
     // once created add to inventory
     inventory.push( this );
 } // end item constructor
+
+function searchNow(){
+    // get user input
+    var sizeSearch = $( '#sizeSearchIn' ).val();
+    var colorSearch = $( '#colorSearchIn' ).val();
+    var matches = [];
+    // loop through inventory array
+    for( var i=0; i < inventory.length; i++ ){
+        // for each item check if both size and color match (compound conditional)
+        if( inventory[ i ].size === sizeSearch && inventory[ i ].color === colorSearch ){ 
+            // if match, push into matches array
+            matches.push( inventory[ i ] );
+        } // end match
+    } // end for
+    // return matches array
+    console.log( 'matches:', matches );
+    return matches;
+} // end searchNow
