@@ -1,11 +1,10 @@
 var inventory =[];
 
-$( document ).ready( readyNow );
-
-function readyNow(){
-    $( '#addItemButton' ).on( 'click', addItem );
-    $( '#searchButton' ).on( 'click', searchNow );
-}  // end readyNow
+$( document ).ready( ()=>{
+        $( '#addItemButton' ).on( 'click', addItem );
+        $( '#searchButton' ).on( 'click', searchNow );
+    }
+);
 
 var addItem = () =>{
     // get user input
