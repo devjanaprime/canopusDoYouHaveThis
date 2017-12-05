@@ -7,7 +7,7 @@ function readyNow(){
     $( '#searchButton' ).on( 'click', searchNow );
 }  // end readyNow
 
-function addItem(){
+var addItem = () =>{
     // get user input
     // use input to create item
     new Item( $( '#sizeIn' ).val(), $( '#colorIn' ).val(), $( '#nameIn' ).val() )
@@ -19,15 +19,17 @@ function addItem(){
 } //end clickyTest
 
 // item object constructor
-function Item( sizeIn, colorIn, nameIn ){
+class Item {
+    constructor( sizeIn, colorIn, nameIn ){
     this.size = sizeIn;
     this.color = colorIn;
     this.name = nameIn;
     // once created add to inventory
     inventory.push( this );
-} // end item constructor
+    } // end item constructor
+}
 
-function searchNow(){
+var searchNow = () =>{
     // get user input
     var sizeSearch = $( '#sizeSearchIn' ).val();
     var colorSearch = $( '#colorSearchIn' ).val();
