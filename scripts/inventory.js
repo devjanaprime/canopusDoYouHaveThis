@@ -1,21 +1,10 @@
-var inventory =[];
+let inventory =[];
 
 $( document ).ready( ()=>{
         $( '#addItemButton' ).on( 'click', addItem );
         $( '#searchButton' ).on( 'click', searchNow );
     }
 );
-
-var addItem = () =>{
-    // get user input
-    // use input to create item
-    new Item( $( '#sizeIn' ).val(), $( '#colorIn' ).val(), $( '#nameIn' ).val() )
-    // push item into array (done in constructor)
-    // reset inputs
-    $( '#nameIn' ).val( '' );
-    $( '#sizeIn' ).val( 'Tiny' );
-    $( '#colorIn' ).val( 'Red' );
-} //end clickyTest
 
 // item object constructor
 class Item {
@@ -24,11 +13,24 @@ class Item {
     this.color = colorIn;
     this.name = nameIn;
     // once created add to inventory
-    inventory.push( this );
     } // end item constructor
 }
 
-var searchNow = () =>{
+let addItem = () =>{
+    // get user input
+    // use input to create item
+    let newItem = new Item( $( '#sizeIn' ).val(), $( '#colorIn' ).val(), $( '#nameIn' ).val() );
+    // push item into array
+    inventory.push( newItem );
+    // reset inputs
+    $( '#nameIn' ).val( '' );
+    $( '#sizeIn' ).val( 'Tiny' );
+    $( '#colorIn' ).val( 'Red' );
+    // run search to update output in case we added a match
+    searchNow();
+} //end clickyTest
+
+let searchNow = () =>{
     // get user input
     var sizeSearch = $( '#sizeSearchIn' ).val();
     var colorSearch = $( '#colorSearchIn' ).val();
@@ -43,5 +45,27 @@ var searchNow = () =>{
     } // end for
     // return matches array
     console.log( 'matches:', matches );
-    return matches;
+    showItems( matches );
 } // end searchNow
+
+let showItems = ( matches ) =>{
+    // display search parameters
+    let searchParameters = $( '#searchParameters' );
+    searchParameters.empty();
+    searchParameters.append( $( '#sizeSearchIn' ).val() + ' & ' + $( '#colorSearchIn' ).val() );
+    // output list
+    itemsList = $( '#itemsList' );
+    itemsList.empty();
+    // check for no matches
+    if( matches.length === 0 ){
+        itemsList.append( '<li>no matches</li>' );
+    } //end no matches
+    else{
+        // loop through array and append each item to DOM
+        for( let i=0; i< matches.length; i++ ){
+            let outputString = '<li>' + matches[ i ].name +'</li>';
+            itemsList.append( outputString );
+        } // end for
+    } // end matches
+    
+} // end showItems
